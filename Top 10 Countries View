@@ -1,0 +1,17 @@
+-- This is an example of a SQL query that is used to create a view to find the top 10 countries by customer count for RockBuster
+-- For the dquery I needed to join three tables together and sort the data to create a top 10 list
+-- This top 10 countries list will be used in further queries to analyze customer usage in the top 10 countries
+
+CREATE VIEW top_10_countries_view AS
+SELECT COUNT(A.customer_id) AS customer_count,
+
+D.country
+
+FROM customer A
+INNER JOIN address B ON A.address_id = B.address_id
+INNER JOIN city C ON B.city_ID = C.city_ID
+INNER JOIN country D ON C.country_id = D.country_id
+
+GROUP BY country
+Order BY Customer_count DESC
+LIMIT 10
