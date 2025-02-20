@@ -1,0 +1,12 @@
+-- The following query is used to show how SQL can get top level metrics about  a filem based on its rating
+-- The vay the data is displayed is much like an Excel pivot table, but whith the benefit of being written by SQL so it is not limited by Excel's files constraints
+
+SELECT rating, Count(film_ID) AS count_of_movies,
+Round(AVG)rental_rate),2) AS average_movie_rental_rate,
+MAX(rental_duration) AS maximum_rental_duration,
+MIN(rental_duration) AS minimum_rental_duration
+
+FROM
+FILM
+Where rating IN ('PG', 'G')
+GROUP BY rating
