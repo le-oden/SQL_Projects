@@ -1,0 +1,27 @@
+-- The following code is used to show an example shows how to find a metric (average rental LTV)
+-- Based on a set of critera. In this instance it is top 10 cities in the top 10 countries
+-- for ROckbuster. this query also references a view created earlier
+
+SELECT AVG(rental_ltv) AS avg_spend FROM
+
+(SELECT A.customer_id, 
+A.first_name,
+A.last_name,
+SUM(P.amount) AS rental_LTV,
+C.city,
+D.country
+
+FROM customer A
+INNER JOIN payment P ON A.customer_id = P.customer_id
+INNER JOIN address B ON A.address_id = B.address_id
+INNER JOIN city C ON B.city_ID = C.city_ID
+INNER JOIN country D ON C.country_id = D.country_id
+Inner JOIN top_10_countries_view V ON  D.country = V.country
+WHERE CITY IN ('Aurora', 'Atlixco', 'Xintai', 'Adoni', 'Dhule (Dhulia)', 'Kurashiki',
+'Pingxiang', 'Sivas', 'Celaya', 'So Leopoldo')
+GROUP BY 1,2,3,5,6
+
+ORDER BY rental_ltv DESC
+
+LIMIT 5) AS total_amount_paid
+
