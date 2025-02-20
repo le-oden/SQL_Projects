@@ -1,0 +1,29 @@
+-- The following SQL code shoes the sub query example rewritten as a common table expression (CTE)
+-- The use of CTEs are greatly prefered as they are shown to cut down on processing resources needed to run a query
+-- and mode for me simplified and elegant code
+
+WITH rental_LTV_cte (customer_id, first_name, last_name, RentalLTV, city, country)
+AS
+
+(SELECT A.customer_id, 
+A.first_name,
+A.last_name,
+SUM(P.amount) AS rental_LTV,
+C.city,
+D.country
+
+FROM customer A
+INNER JOIN payment P ON A.customer_id = P.customer_id
+INNER JOIN address B ON A.address_id = B.address_id
+INNER JOIN city C ON B.city_ID = C.city_ID
+INNER JOIN country D ON C.country_id = D.country_id
+Inner JOIN top_10_countries_view V ON  D.country = V.country
+WHERE CITY IN ('Aurora', 'Atlixco', 'Xintai', 'Adoni', 'Dhule (Dhulia)', 'Kurashiki',
+'Pingxiang', 'Sivas', 'Celaya', 'So Leopoldo')
+GROUP BY 1,2,3,5,6
+
+ORDER BY rental_LTV DESC
+
+LIMIT 5) 
+
+SELECT AVG(RentalLTV) FROM rental_LTV_cte
