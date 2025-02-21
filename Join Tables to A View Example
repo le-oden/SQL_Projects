@@ -1,5 +1,5 @@
 -- This query is used to join the view I created to other tables in the database.
--- The view made it easy to reference 10 10 countries only
+-- The view made it easy to reference top 10 countries only
 
 SELECT COUNT(A.customer_id) AS customer_count,
 C.city,
