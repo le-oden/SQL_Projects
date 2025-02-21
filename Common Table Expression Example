@@ -1,6 +1,6 @@
--- The following SQL code shoes the sub query example rewritten as a common table expression (CTE)
+-- The following SQL code shows the sub query example rewritten as a common table expression (CTE)
 -- The use of CTEs are greatly prefered as they are shown to cut down on processing resources needed to run a query
--- and mode for me simplified and elegant code
+-- and make for simplified and elegant code
 
 WITH rental_LTV_cte (customer_id, first_name, last_name, RentalLTV, city, country)
 AS
